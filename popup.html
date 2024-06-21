@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Gemini Key Checker</title>
+    <link rel="stylesheet" type="text/css" href="popup.css">
+    <script src="popup.js"></script>
+  </head>
+  <body>
+    <div id="gemini" style="display: none;">
+      <label for="geminiKey">Gemini Key:</label>
+      <input type="text" id="geminiKey" />
+      <a href="https://aistudio.google.com/app/apikey" target="_blank">Get Gemini Key From AI Studio</a>
+      <label for="systemInstruction">System Instruction:</label>
+      <textarea type="text" id="systemInstruction" ></textarea>
+      <button id="saveKey">Save</button>
+    </div>
+    <div id="editGemini" style="display: none;">
+      <button id="editKey">Edit Gemini Key and System Instruction</button>
+    </div>
+    <div id="loading" class="loading" style="display: none;"></div>
+    <div id="response"></div>
+  </body>
+</html>
