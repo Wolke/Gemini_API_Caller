@@ -1,8 +1,6 @@
-# Gemini API Caller Chrome Extension
-
 ## Overview
 
-The **Gemini API Caller** Chrome extension allows users to interact with the Gemini API to generate content based on selected text or the entire body text of the current webpage. Users can save their Gemini API key and a system instruction for customized API calls.
+**Gemini API Caller** Chrome extension allows users to interact with the Gemini API to generate content based on selected text or the entire body text of the current webpage. Users can save their Gemini API key and a system instruction for customized API calls.
 
 ## Features
 
@@ -27,6 +25,19 @@ The **Gemini API Caller** Chrome extension allows users to interact with the Gem
 3. The extension will automatically extract text from the current webpage and display the generated content in the popup.
 4. To edit your Gemini API key and system instruction, click the "Edit Gemini Key and System Instruction" button.
 
+### Reference System Instructions
+
+- Summary
+```
+summary in 50 words
+```
+
+- Format as Calendar File
+```
+1. response in ICS format
+2. take off markdown tag , e.g `
+```
+
 ## File Structure
 
 - `background.js`: Handles background tasks, including the API call to Gemini and message passing between the content script and the popup.
@@ -40,10 +51,12 @@ The **Gemini API Caller** Chrome extension allows users to interact with the Gem
 ### Setup
 
 1. Clone the repository:
+```bash
 git clone https://github.com/wolkesau/gemini-api-caller.git
 cd gemini-api-caller
+```
 
-2. use chrome extension developer mode to load files.
+2. Use Chrome extension developer mode to load the files.
 
 ## Contributing
 

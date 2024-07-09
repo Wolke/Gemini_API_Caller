@@ -33,3 +33,26 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+/* Add this to popup.css */
+#geminiLink {
+  display: inline-block;
+  transition: color 0.3s, transform 0.3s;
+}
+
+#geminiLink.animate {
+  color: red; /* Highlight the link in red */
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+      transform: scale(1);
+  }
+  50% {
+      transform: scale(1.1);
+  }
+  100% {
+      transform: scale(1);
+  }
+}

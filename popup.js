@@ -7,6 +7,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const saveKeyButton = document.getElementById('saveKey');
     const editKeyButton = document.getElementById('editKey');
     const loadingDiv = document.getElementById('loading');
+    const saveResponseButton = document.getElementById('saveResponse');
+    const filenameDiv = document.getElementById('filenameDiv');
+    const defaultFilenameInput = document.getElementById('defaultFilename');
+    const geminiLink = document.getElementById('geminiLink');
 
     function executeScriptAndGetResult(scriptFunction) {
         return new Promise((resolve, reject) => {
@@ -43,18 +47,33 @@ document.addEventListener('DOMContentLoaded', function () {
         loadingDiv.style.display = 'none';
     }
 
-    chrome.storage.local.get(['geminiKey', 'systemInstruction'], function (result) {
+    function downloadContent(text, defaultFilename) {
+        const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = defaultFilename;
+        a.click();
+        URL.revokeObjectURL(url);
+        chrome.storage.local.set({ defaultFilename: defaultFilename }); // Save the filename to local storage
+    }
+
+    chrome.storage.local.get(['geminiKey', 'systemInstruction', 'defaultFilename'], function (result) {
         if (result.geminiKey && result.systemInstruction) {
             showLoading();
             getText().then((text) => {
                 chrome.runtime.sendMessage({ action: "callAPI", text: text }, function (response) {
                     responseDiv.innerText = response.response;
+                    saveResponseButton.style.display = 'block'; // Show the save button
+                    filenameDiv.style.display = 'block'; // Show the filename input
+                    defaultFilenameInput.value = result.defaultFilename || 'content.txt'; // Set default filename
                     hideLoading();
                 });
             });
             editGeminiDiv.style.display = 'block';
         } else {
             geminiDiv.style.display = 'block';
+            geminiLink.classList.add('animate'); // Add animation class
         }
     });
 
@@ -68,6 +87,8 @@ document.addEventListener('DOMContentLoaded', function () {
             getText().then((text) => {
                 chrome.runtime.sendMessage({ action: "callAPI", text: text }, function (response) {
                     responseDiv.innerText = response.response;
+                    saveResponseButton.style.display = 'block'; // Show the save button
+                    filenameDiv.style.display = 'block'; // Show the filename input
                     hideLoading();
                 });
             });
@@ -81,5 +102,11 @@ document.addEventListener('DOMContentLoaded', function () {
             geminiDiv.style.display = 'block';
             editGeminiDiv.style.display = 'none';
         });
+    });
+
+    saveResponseButton.addEventListener('click', function () {
+        const responseText = responseDiv.innerText;
+        const defaultFilename = defaultFilenameInput.value;
+        downloadContent(responseText, defaultFilename);
     });
 });

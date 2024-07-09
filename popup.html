@@ -9,15 +9,22 @@
     <div id="gemini" style="display: none;">
       <label for="geminiKey">Gemini Key:</label>
       <input type="text" id="geminiKey" />
-      <a href="https://aistudio.google.com/app/apikey" target="_blank">Get Gemini Key From AI Studio</a>
+      <a id="geminiLink" href="https://aistudio.google.com/app/apikey" target="_blank">Get Gemini Key From AI Studio</a>
+      <br />
       <label for="systemInstruction">System Instruction:</label>
       <textarea type="text" id="systemInstruction" ></textarea>
       <button id="saveKey">Save</button>
     </div>
     <div id="editGemini" style="display: none;">
-      <button id="editKey">Edit Gemini Key and System Instruction</button>
+      <button id="editKey">Setting</button>
     </div>
     <div id="loading" class="loading" style="display: none;"></div>
     <div id="response"></div>
+
+    <button id="saveResponse" style="display: none;">Save Response to File</button>
+    <div id="filenameDiv" style="display: none;">
+      <label for="defaultFilename">Default Filename:</label>
+      <input type="text" id="defaultFilename" value="content.txt"/>
+    </div>
   </body>
 </html>
